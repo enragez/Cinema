@@ -1,0 +1,50 @@
+﻿@page
+@model Cinema.Pages.Tickets.BookedModel
+
+@{
+    ViewData["Title"] = "Забронированные билеты";
+}
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Пользователь</th>
+        <th>Фильм</th>
+        <th>Время</th>
+        <th>Цена</th>
+        <th>Ряд</th>
+        <th>Место</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Tickets)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Film)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Row)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Column)
+            </td>
+            <td>
+                <a asp-page="./CancelBook" asp-route-id="@item.Id">Удалить</a> |
+                <a asp-page="./Issue" asp-route-ticketid="@item.Id">Оформить</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

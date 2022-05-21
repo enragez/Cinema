@@ -1,0 +1,55 @@
+﻿@page
+@model Cinema.Pages.FilmSessions.EditModel
+
+@{
+    ViewData["Title"] = "Изменить сеанс";
+}
+
+<h1>Изменить сеанс</h1>
+
+<h4>Сеанс</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="FilmSessionModel.Id" />
+            <div class="form-floating">
+                <datalist id="filmsList">
+                    @foreach (var item in Model.Films) {
+                        <option value="@item">@item</option>
+                    }
+                </datalist>
+                <input type="text" asp-for="FilmSessionModel.Film" class="form-control" list="filmsList"/>
+                <label asp-for="FilmSessionModel.Film"></label>
+                <span asp-validation-for="FilmSessionModel.Film" class="text-danger"></span>
+            </div>
+            <div class="form-floating" style="margin-top: 8px">
+                <input type="datetime-local" asp-for="FilmSessionModel.Date" class="form-control" />
+                <label asp-for="FilmSessionModel.Date" ></label>
+                <span asp-validation-for="FilmSessionModel.Date" class="text-danger"></span>
+            </div>
+            <div class="form-floating" style="margin-top: 8px">
+                <input type="number" asp-for="FilmSessionModel.Hall" class="form-control" />
+                <label asp-for="FilmSessionModel.Hall" ></label>
+                <span asp-validation-for="FilmSessionModel.Hall" class="text-danger"></span>
+            </div>
+            <div class="form-floating" style="margin-top: 8px">
+                <input type="number" step="1" asp-for="FilmSessionModel.Price" class="form-control" />
+                <label asp-for="FilmSessionModel.Price"></label>
+                <span asp-validation-for="FilmSessionModel.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="margin-top: 8px">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

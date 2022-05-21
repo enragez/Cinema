@@ -1,0 +1,63 @@
+﻿@model Cinema.Models.HomeViewModel;
+@{
+    ViewData["Title"] = "Кинотеатр";
+}
+
+<style>
+    .films {
+        display:  flex;
+        flex-direction: row;
+        flex-wrap:  wrap;
+        align-content: flex-start;
+        justify-content: space-between;
+    }
+    
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    
+    .poster {
+        height: 424px;
+        width: 280px;
+        opacity: .6;
+    }
+    
+    .poster:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+    
+    .film {
+        width: 500px;
+        height: 600px;
+        display:  flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .film-name {
+        font-size: 24px;
+        font-weight: 700;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Добро пожаловать в кинотеатр</h1>
+</div>
+
+<div class="films">
+    @{
+        foreach (var film in Model.Films)
+        {
+            <div class="film">
+                <a class="poster" href="/FilmSessions/View?id=@film.Id">
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(film.Poster)" alt="@film.Name"/>
+                </a>
+                <div class="film-name">@film.Name</div>
+                <div>@film.Genre</div>
+            </div>
+        }
+    }
+</div>

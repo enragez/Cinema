@@ -1,0 +1,32 @@
+﻿@page
+@model Cinema.Pages.FilmSessions.BuyConfirmModel
+
+@{
+    ViewData["Title"] = "Подтверждение покупки";
+}
+
+<h1>Купить билет</h1>
+
+<h3>Вы действительно хотите купить этот билет?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Фильм: @Model.FilmSession.Film
+            Время: @Model.FilmSession.Date
+            Зал: @Model.FilmSession.Hall
+            Цена: @Model.FilmSession.Price
+            Ряд: @Model.Row
+            Место: @Model.Column
+        </dt>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="FilmSession.Id" />
+        <div class="form-floating" style="margin-top: 8px; width: 400px">
+            <input id="cardNumber" class="form-control" required="required"/>
+            <label for="cardNumber">Номер карты</label>
+        </div>
+        <input type="submit" value="Купить" class="btn btn-primary" style="margin-top: 8px" /> |
+        <a asp-page="./Book" asp-route-id="@Model.FilmSession.Id">Назад к схеме зала</a>
+    </form>
+</div>

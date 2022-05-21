@@ -1,0 +1,47 @@
+﻿@page
+@model Cinema.Pages.FilmSessions.IndexModel
+
+@{
+    ViewData["Title"] = "Сеансы";
+}
+
+
+<p>
+    <a asp-page="Create">Добавить сеанс</a>
+</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Фильм</th>
+        <th>Зал</th>
+        <th>Время</th>
+        <th>Цена</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.FilmSessions)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Film)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hall)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price) рублей
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Изменить</a> |
+                <!--<a asp-page="./Details" asp-route-id="@item.Id">Посмотреть</a> | -->
+                <a asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

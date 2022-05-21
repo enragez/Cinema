@@ -1,0 +1,32 @@
+﻿@page
+@model Cinema.Pages.Report.IndexModel
+
+@{
+    ViewData["Title"] = "Отчет";
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Период</th>
+        <th>Продано билетов</th>
+        <th>Выручка</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Rows)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Period)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketsCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Income)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+﻿@page
+@model Cinema.Pages.Tickets.IssueModel
+
+@{
+    ViewData["Title"] = "Оформить забронированный билет";
+}
+
+<h1>Оформить забронированный билет</h1>
+
+<h3>Вы действительно хотите оформить этот забронированный билет?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Пользователь: @Model.UserName
+            Фильм: @Model.FilmSession.Film
+            Время: @Model.FilmSession.Date
+            Зал: @Model.FilmSession.Hall
+            Цена: @Model.FilmSession.Price
+            Ряд: @Model.Row
+            Место: @Model.Column
+        </dt>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="FilmSession.Id" />
+        <input type="submit" value="Оформить" class="btn btn-primary" /> |
+        <a asp-page="./Book" asp-route-id="@Model.FilmSession.Id">Назад к схеме зала</a>
+    </form>
+</div>

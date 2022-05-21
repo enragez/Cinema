@@ -1,0 +1,77 @@
+﻿@page
+@model Cinema.Pages.MyTickets.IndexModel
+
+@{
+    ViewData["Title"] = "Мои билеты";
+}
+
+<style>
+    .ticket-expired > td {
+        text-decoration: line-through;
+    }
+</style>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Фильм</th>
+        <th>Время</th>
+        <th>Оплачено</th>
+        <th>Цена</th>
+        <th>Ряд</th>
+        <th>Место</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Tickets)
+    {
+        var classStr = DateTime.Now > item.Date ? "ticket-expired" : "";
+        <tr class="@classStr">
+            <td>
+                @Html.DisplayFor(modelItem => item.Film)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Row)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Column)
+            </td>
+            @if (item.Paid == "Да")
+            {
+                if (DateTime.Now.AddMinutes(30) >= item.Date)
+                {
+                    <td>
+                        <a asp-page="/FilmSessions/Book" asp-route-id="@item.FilmSessionId">Схема зала</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-page="./ReturnTicket" asp-route-id="@item.Id">Оформить возврат</a> |
+                        <a asp-page="/FilmSessions/Book" asp-route-id="@item.FilmSessionId">Схема зала</a>
+                    </td>
+                }
+            }
+            else
+            {
+                <td>
+                    <a asp-page="/FilmSessions/BuyConfirm" asp-route-id="@item.FilmSessionId" asp-route-row="@item.Row" asp-route-column="@item.Column" asp-route-ticketid="@item.Id">Оплатить</a> |
+                    <a asp-page="./CancelBook" asp-route-id="@item.Id">Отменить бронирование</a> |
+                    <a asp-page="/FilmSessions/Book" asp-route-id="@item.FilmSessionId">Схема зала</a>
+                </td>
+            }
+            
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,31 @@
+﻿@page
+@model Cinema.Pages.MyTickets.ReturnTicketModel
+
+@{
+    ViewData["Title"] = "Возврат билета";
+}
+
+<h1>Вернуть билет</h1>
+
+<h3>Вы действительно хотите вернуть этот билет?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Фильм: @Model.Ticket.Film
+            Время: @Model.Ticket.Date
+            Зал: @Model.Ticket.Hall
+            Ряд: @Model.Ticket.Row
+            Место: @Model.Ticket.Column
+        </dt>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Ticket.Id" />
+        <div class="form-floating" style="margin-top: 8px; width: 400px">
+            <input id="cardNumber" class="form-control" required="required"/>
+            <label for="cardNumber">Номер карты для возврата средств</label>
+        </div>
+        <input type="submit" value="Вернуть" class="btn btn-danger"  style="margin-top: 8px" /> |
+        <a asp-page="./Index">Назад к списку</a>
+    </form>
+</div>
